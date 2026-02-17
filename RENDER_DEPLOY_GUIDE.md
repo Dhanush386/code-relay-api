@@ -7,8 +7,9 @@ This guide will walk you through deploying the **Code-Relay** platform to Render
 ## 🏗️ Phase 1: Prepare your Code (GitHub)
 
 Render deploys directly from GitHub.
-1.  **Commit your changes**: Ensure the recent Piston integration and `uuid` fix are committed.
-2.  **Push to GitHub**: Create a repository and push your `code-relay-main` folder contents.
+1.  **Create a Dockerfile**: I have created a `Dockerfile` in your root folder. It simply contains `FROM ghcr.io/engineer-man/piston:latest`. This tells Render to use the official Piston engine.
+2.  **Commit your changes**: Ensure the new `Dockerfile`, the recent Piston integration, and the `uuid` fix are committed.
+3.  **Push to GitHub**: Push these changes to your repository.
 
 ---
 
@@ -17,7 +18,7 @@ Render deploys directly from GitHub.
 
 1.  In Render, click **New +** → **Postgres**.
 2.  **Your Internal Database URL**: `postgresql://coderelay_user:me4WJmVIymEQlp79EbTED0yjqdqzBhiI@dpg-d64rslshg0os73df80g0-a/coderelay`
-3.  Copy the **External Database URL** (if you need to run migrations from your local PC).
+3.  **Your External Database URL**: `postgresql://coderelay_user:me4WJmVIymEQlp79EbTED0yjqdqzBhiI@dpg-d64rslshg0os73df80g0-a.singapore-postgres.render.com/coderelay`
 
 ---
 
@@ -68,7 +69,8 @@ Render doesn't allow raw Docker commands in Web Services, so we use Piston to ma
 From your **local computer** terminal, run the following to set up the tables:
 ```bash
 cd backend
-# Set your local env DATABASE_URL to the EXTERNAL Render URL temporarily
+# Temporarily set your local DATABASE_URL to your EXTERNAL URL:
+# postgresql://coderelay_user:me4WJmVIymEQlp79EbTED0yjqdqzBhiI@dpg-d64rslshg0os73df80g0-a.singapore-postgres.render.com/coderelay
 npx prisma migrate deploy
 ```
 
